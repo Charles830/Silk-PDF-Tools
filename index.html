@@ -9,7 +9,7 @@
     
     <!-- PWA Manifest Link -->
     <link rel="manifest" href="/manifest.json" />
-    <link rel="apple-touch-icon" href="/logo.png" />
+    <link rel="apple-touch-icon" href="https://youke2.picui.cn/s1/2025/12/11/693a2fc487b80.png" />
     
     <script src="https://cdn.tailwindcss.com"></script>
     <!-- Load PDF-Lib for client-side PDF processing (Version 1.17.1 via unpkg for full build) -->
@@ -99,15 +99,14 @@
         background: rgba(156, 163, 175, 0.8);
       }
     </style>
-  <script type="importmap">
+<script type="importmap">
 {
   "imports": {
-    "react-dom/": "https://aistudiocdn.com/react-dom@^19.2.0/",
-    "react-router-dom": "https://aistudiocdn.com/react-router-dom@^7.9.6",
-    "react/": "https://aistudiocdn.com/react@^19.2.0/",
-    "react": "https://aistudiocdn.com/react@^19.2.0",
-    "lucide-react": "https://aistudiocdn.com/lucide-react@^0.555.0",
-    "react-signature-canvas": "https://aistudiocdn.com/react-signature-canvas@^1.1.0-alpha.2"
+    "react-dom/": "https://aistudiocdn.com/react-dom@^19.2.1/",
+    "lucide-react": "https://aistudiocdn.com/lucide-react@^0.559.0",
+    "react/": "https://aistudiocdn.com/react@^19.2.1/",
+    "react": "https://aistudiocdn.com/react@^19.2.1",
+    "react-router-dom": "https://aistudiocdn.com/react-router-dom@^7.10.1"
   }
 }
 </script>
@@ -128,7 +127,7 @@
         });
       }
     </script>
-    <!-- Make sure your entry point is here (e.g. for Vite local dev) -->
-    <!-- <script type="module" src="/src/index.tsx"></script> -->
+    <!-- CRITICAL FIX: Uncommented the entry point so the React app loads -->
+    <script type="module" src="/src/index.tsx"></script>
   </body>
 </html>

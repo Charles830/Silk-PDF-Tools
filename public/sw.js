@@ -3,7 +3,7 @@ const CACHE_NAME = 'silk-pdf-cache-v1';
 const urlsToCache = [
   '/',
   '/index.html',
-  '/logo.png',
+  'https://youke2.picui.cn/s1/2025/12/11/693a2fc487b80.png',
   'https://cdn.tailwindcss.com',
   'https://unpkg.com/pdf-lib@1.17.1/dist/pdf-lib.min.js',
   'https://unpkg.com/downloadjs@1.4.7/download.min.js',

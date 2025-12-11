@@ -9,11 +9,10 @@
     "preview": "vite preview"
   },
   "dependencies": {
-    "react-dom": "^19.2.0",
-    "react-router-dom": "^7.9.6",
-    "react": "^19.2.0",
-    "lucide-react": "^0.555.0",
-    "react-signature-canvas": "^1.1.0-alpha.2"
+    "react-dom": "^19.2.1",
+    "lucide-react": "^0.559.0",
+    "react": "^19.2.1",
+    "react-router-dom": "^7.10.1"
   },
   "devDependencies": {
     "@types/node": "^22.14.0",
