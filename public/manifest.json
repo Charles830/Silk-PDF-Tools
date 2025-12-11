@@ -1,0 +1,21 @@
+{
+  "name": "Silk PDF Tools",
+  "short_name": "Silk PDF",
+  "start_url": ".",
+  "display": "standalone",
+  "background_color": "#f1ebe2",
+  "theme_color": "#f1ebe2",
+  "orientation": "portrait",
+  "icons": [
+    {
+      "src": "/logo.png",
+      "sizes": "192x192",
+      "type": "image/png"
+    },
+    {
+      "src": "/logo.png",
+      "sizes": "512x512",
+      "type": "image/png"
+    }
+  ]
+}
