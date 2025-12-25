@@ -4,7 +4,7 @@ import { TOOLS } from '../constants';
 import FileUploader from '../components/FileUploader';
 import { ToolType } from '../types';
 import { processFiles, createJpgPreview } from '../services/pdfService';
-import { ArrowLeft, Download, Loader2, Upload, ChevronLeft, ChevronRight, Scaling, X, RotateCw, LayoutTemplate, Minimize2 } from 'lucide-react';
+import { ArrowLeft, Download, Loader2, Upload, ChevronLeft, ChevronRight, Scaling, X, RotateCw, LayoutTemplate } from 'lucide-react';
 import { useApp } from '../contexts/AppContext';
 
 const ToolPage: React.FC = () => {
@@ -31,9 +31,6 @@ const ToolPage: React.FC = () => {
   const [jpgOrientation, setJpgOrientation] = useState<'portrait' | 'landscape'>('portrait');
   const [jpgMargin, setJpgMargin] = useState<'none' | 'small' | 'big'>('small');
   
-  // Compress State
-  const [compressionLevel, setCompressionLevel] = useState<'standard' | 'strong' | 'extreme'>('standard');
-
   // Signature Positioning & Page Nav State
   const [pdfPreviewUrl, setPdfPreviewUrl] = useState<string | null>(null);
   const [sigPosition, setSigPosition] = useState({ x: 0.35, y: 0.35 }); // relative 0-1
@@ -76,7 +73,6 @@ const ToolPage: React.FC = () => {
     setEditFontSize(48);
     setJpgOrientation('portrait');
     setJpgMargin('small');
-    setCompressionLevel('standard');
     setActiveMobileTab('settings');
   }, [id]);
 
@@ -215,10 +211,6 @@ const ToolPage: React.FC = () => {
       if (toolConfig.id === ToolType.JPG_TO_PDF) {
         options.orientation = jpgOrientation;
         options.margin = jpgMargin;
-      }
-      
-      if (toolConfig.id === ToolType.COMPRESS) {
-        options.compressionLevel = compressionLevel;
       }
 
       const result = await processFiles(toolConfig.id, files, options);
@@ -525,51 +517,6 @@ const ToolPage: React.FC = () => {
                           className="text-violet-600 focus:ring-violet-500"
                         />
                         <span className="text-slate-700 dark:text-slate-200">{t.toolSpecific.splitModes.extractAll}</span>
-                      </label>
-                  </div>
-                </div>
-              )}
-
-              {/* COMPRESS Controls */}
-              {toolConfig.id === ToolType.COMPRESS && (
-                <div className="bg-slate-50 dark:bg-slate-700/50 p-6 rounded-2xl mb-6">
-                  <h3 className="font-semibold text-slate-900 dark:text-white mb-4 flex items-center gap-2">
-                    <Minimize2 className="w-5 h-5 text-teal-500" />
-                    {t.toolSpecific.compressOptions.level}
-                  </h3>
-                  
-                  <div className="flex flex-col gap-3">
-                      <label className="flex items-center gap-3 p-3 rounded-xl bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-600 cursor-pointer hover:border-teal-500 transition-colors">
-                        <input 
-                          type="radio" 
-                          name="compressionLevel" 
-                          checked={compressionLevel === 'standard'}
-                          onChange={() => setCompressionLevel('standard')}
-                          className="text-teal-600 focus:ring-teal-500"
-                        />
-                        <span className="text-slate-700 dark:text-slate-200">{t.toolSpecific.compressOptions.standard}</span>
-                      </label>
-                      
-                      <label className="flex items-center gap-3 p-3 rounded-xl bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-600 cursor-pointer hover:border-teal-500 transition-colors">
-                        <input 
-                          type="radio" 
-                          name="compressionLevel" 
-                          checked={compressionLevel === 'strong'}
-                          onChange={() => setCompressionLevel('strong')}
-                          className="text-teal-600 focus:ring-teal-500"
-                        />
-                        <span className="text-slate-700 dark:text-slate-200">{t.toolSpecific.compressOptions.strong}</span>
-                      </label>
-
-                      <label className="flex items-center gap-3 p-3 rounded-xl bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-600 cursor-pointer hover:border-teal-500 transition-colors">
-                        <input 
-                          type="radio" 
-                          name="compressionLevel" 
-                          checked={compressionLevel === 'extreme'}
-                          onChange={() => setCompressionLevel('extreme')}
-                          className="text-teal-600 focus:ring-teal-500"
-                        />
-                        <span className="text-slate-700 dark:text-slate-200">{t.toolSpecific.compressOptions.extreme}</span>
                       </label>
                   </div>
                 </div>

@@ -5,8 +5,7 @@ import {
   FileText, 
   PenTool, 
   Edit3, 
-  Image as ImageIcon,
-  Minimize2
+  Image as ImageIcon 
 } from 'lucide-react';
 import React from 'react';
 
@@ -27,13 +26,6 @@ export const TOOLS: Record<ToolType, ToolConfigStatic> = {
     accept: '.pdf',
     multiple: false,
     color: 'text-pink-500'
-  },
-  [ToolType.COMPRESS]: {
-    id: ToolType.COMPRESS,
-    icon: 'Minimize2',
-    accept: '.pdf',
-    multiple: false,
-    color: 'text-teal-500'
   },
   [ToolType.PDF_TO_WORD]: {
     id: ToolType.PDF_TO_WORD,
@@ -74,7 +66,6 @@ export const getIcon = (name: string, className?: string) => {
     case 'PenTool': return <PenTool {...props} />;
     case 'Edit3': return <Edit3 {...props} />;
     case 'ImageIcon': return <ImageIcon {...props} />;
-    case 'Minimize2': return <Minimize2 {...props} />;
     default: return <Files {...props} />;
   }
 };
