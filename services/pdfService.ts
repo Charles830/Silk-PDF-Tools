@@ -180,6 +180,79 @@ export const processFiles = async (
         }
       }
 
+      case ToolType.COMPRESS: {
+         const level = options.compressionLevel || 'standard';
+         
+         if (level === 'standard') {
+            // Standard: Just load and save. PDF-Lib automatically compacts the file structure.
+            const buffer = await readFile(files[0]);
+            const pdfDoc = await PDFDocument.load(buffer);
+            const pdfBytes = await pdfDoc.save();
+            return {
+              name: `compressed_silk_${Date.now()}.pdf`,
+              data: pdfBytes,
+              mimeType: 'application/pdf'
+            };
+         } else {
+            // Strong/Extreme: Rasterize pages to JPEG images and place in new PDF
+            // This is "destructive" but effective for scans or complex vectors
+            if (!pdfjsLib) throw new Error("PDF.js not loaded.");
+            if (!pdfjsLib.GlobalWorkerOptions.workerSrc) {
+               pdfjsLib.GlobalWorkerOptions.workerSrc = 'https://cdnjs.cloudflare.com/ajax/libs/pdf.js/3.11.174/pdf.worker.min.js';
+            }
+
+            const buffer = await readFile(files[0]);
+            const pdfProxy = await pdfjsLib.getDocument({ data: buffer }).promise;
+            const numPages = pdfProxy.numPages;
+            
+            const newPdf = await PDFDocument.create();
+            
+            // Configuration for compression levels
+            // Strong: Scale 1.5 (good read quality), JPEG 0.7
+            // Extreme: Scale 1.0 (screen quality), JPEG 0.5
+            let scale = 1.5;
+            let quality = 0.7;
+            
+            if (level === 'extreme') {
+               scale = 1.0;
+               quality = 0.5;
+            }
+
+            for (let i = 1; i <= numPages; i++) {
+               const page = await pdfProxy.getPage(i);
+               const viewport = page.getViewport({ scale: scale });
+               
+               const canvas = document.createElement('canvas');
+               const ctx = canvas.getContext('2d');
+               canvas.width = viewport.width;
+               canvas.height = viewport.height;
+               
+               await page.render({ canvasContext: ctx!, viewport: viewport }).promise;
+               
+               const imgData = canvas.toDataURL('image/jpeg', quality);
+               const img = await newPdf.embedJpg(imgData);
+               
+               // Restore original dimensions for the PDF page
+               const originalViewport = page.getViewport({ scale: 1.0 });
+               const newPage = newPdf.addPage([originalViewport.width, originalViewport.height]);
+               
+               newPage.drawImage(img, {
+                 x: 0,
+                 y: 0,
+                 width: originalViewport.width,
+                 height: originalViewport.height
+               });
+            }
+
+            const pdfBytes = await newPdf.save();
+            return {
+              name: `compressed_silk_${Date.now()}.pdf`,
+              data: pdfBytes,
+              mimeType: 'application/pdf'
+            };
+         }
+      }
+
       case ToolType.JPG_TO_PDF: {
         const doc = await PDFDocument.create();
         

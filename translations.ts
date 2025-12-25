@@ -41,6 +41,10 @@ export const translations = {
         title: 'Split PDF',
         description: 'Separate one page or a whole set for easy conversion into independent PDF files.'
       },
+      [ToolType.COMPRESS]: {
+        title: 'Compress PDF',
+        description: 'Reduce PDF file size by optimizing structure or flattening pages.'
+      },
       [ToolType.PDF_TO_WORD]: {
         title: 'PDF to Word',
         description: 'Convert your PDF to WORD documents with incredible accuracy.'
@@ -101,6 +105,12 @@ export const translations = {
         none: "No Margin",
         small: "Small",
         big: "Big"
+      },
+      compressOptions: {
+        level: "Compression Level",
+        standard: "Standard (Metadata cleanup)",
+        strong: "Strong (Rasterize 150DPI)",
+        extreme: "Extreme (Rasterize 72DPI)"
       }
     }
   },
@@ -141,6 +151,10 @@ export const translations = {
       [ToolType.SPLIT]: {
         title: '拆分 PDF',
         description: '提取特定页面或将每一页拆分为独立的 PDF 文件。'
+      },
+      [ToolType.COMPRESS]: {
+        title: '压缩 PDF',
+        description: '通过优化结构或平面化页面来减小 PDF 文件大小。'
       },
       [ToolType.PDF_TO_WORD]: {
         title: 'PDF 转 Word',
@@ -202,6 +216,12 @@ export const translations = {
         none: "无边距",
         small: "窄边距",
         big: "宽边距"
+      },
+      compressOptions: {
+        level: "压缩等级",
+        standard: "标准 (仅清除元数据)",
+        strong: "强力 (栅格化 150DPI)",
+        extreme: "极限 (栅格化 72DPI)"
       }
     }
   }

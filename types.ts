@@ -5,6 +5,7 @@ export enum ToolType {
   SIGN = 'sign',
   EDIT = 'edit',
   JPG_TO_PDF = 'jpg-to-pdf',
+  COMPRESS = 'compress',
 }
 
 export interface ToolConfig {
